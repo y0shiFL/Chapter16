@@ -15,6 +15,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class TextViewer extends Application {
 
 
@@ -61,14 +66,28 @@ public class TextViewer extends Application {
         primaryStage.setTitle("Text Viewer");
         primaryStage.show();
     }
+
     public void getTextFile()
     {
-        int input = Integer.parseInt(tfInput.getText());
+        taOutput.clear();
 
-        String txtFile =
+        String txtFile = tfInput.getText();
+        Boolean bLoadOk = Boolean.FALSE;
+        try {
 
-        //For Loop to step through?
+            BufferedReader in = new BufferedReader(new FileReader(txtFile));
 
-        //taOutput.setText(String.format());
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                taOutput.appendText(line);
+            }
+            bLoadOk = Boolean.TRUE;
+
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        }
+        if(!bLoadOk){
+            taOutput.appendText("File not found");
+        }
     }
 }
