@@ -15,10 +15,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.util.Scanner;
 
 public class TextViewer extends Application {
 
@@ -38,27 +36,27 @@ public class TextViewer extends Application {
         taOutput.setFont(Font.font("Times", 20));
         taOutput.setEditable(false);
         taOutput.setWrapText(true);
-        taOutput.setMaxSize(300,300);
+        taOutput.setMaxSize(300, 300);
 
         ScrollPane outputScroll = new ScrollPane(taOutput);
 
 
         tfInput.setFont(Font.font("Times", 12));
         tfInput.setEditable(true);
-        tfInput.setMaxSize(300,50);
+        tfInput.setMaxSize(300, 50);
 
         ScrollPane inputScroll = new ScrollPane(tfInput);
 
 
         Button btn = new Button("View");
-        btn.setMaxSize(50,50);
+        btn.setMaxSize(50, 50);
         btn.setAlignment(Pos.BOTTOM_CENTER);
 
-        btn.setOnAction(e-> getTextFile());
+        btn.setOnAction(e -> getTextFile());
 
-        gridPane.add(outputScroll,0,0);
-        gridPane.add(inputScroll,0,1);
-        gridPane.add(btn,0,2);
+        gridPane.add(outputScroll, 0, 0);
+        gridPane.add(inputScroll, 0, 1);
+        gridPane.add(btn, 0, 2);
 
 
         Scene scene = new Scene(gridPane, 450, 400);
@@ -67,27 +65,36 @@ public class TextViewer extends Application {
         primaryStage.show();
     }
 
-    public void getTextFile()
-    {
+    public void getTextFile() {
         taOutput.clear();
 
         String txtFile = tfInput.getText();
         Boolean bLoadOk = Boolean.FALSE;
         try {
+            Scanner scan = new Scanner(new FileReader(txtFile));
+            while (scan.hasNextLine()) {
+                String line = scan.nextLine();
+                taOutput.appendText(line);
+            }
 
+           /*
             BufferedReader in = new BufferedReader(new FileReader(txtFile));
 
             String line = null;
             while ((line = in.readLine()) != null) {
                 taOutput.appendText(line);
             }
-            bLoadOk = Boolean.TRUE;
+            */
+            // bLoadOk = Boolean.TRUE;
 
         } catch (FileNotFoundException e) {
+            //
         } catch (IOException e) {
+            //
         }
-        if(!bLoadOk){
+        if (!bLoadOk) {
             taOutput.appendText("File not found");
         }
     }
 }
+

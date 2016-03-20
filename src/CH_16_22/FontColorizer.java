@@ -94,6 +94,12 @@ public class FontColorizer extends Application {
             Color clr = (Color) textInCenter.getFill();  // casting to Color assumes it's a solid colid, not a gradient
             textInCenter.setFill( new Color(clr.getRed(), newGreen, clr.getBlue(), clr.getOpacity()) );
         });
+        ScrollBar sbBlue = new ScrollBar();
+        sbBlue.valueProperty().addListener(ov -> {
+            double newBlue = sbBlue.getValue() / sbBlue.getMax();
+            Color clr = (Color) textInCenter.getFill();  // casting to Color assumes it's a solid colid, not a gradient
+            textInCenter.setFill( new Color(clr.getRed(), clr.getGreen(), newBlue, clr.getOpacity()) );
+        });
 
         GridPane paneRight = new GridPane();
         paneRight.setAlignment(Pos.CENTER);
@@ -104,6 +110,8 @@ public class FontColorizer extends Application {
         paneRight.add(sbRed,1,0);
         paneRight.add(new Label("Green"), 0, 1);
         paneRight.add(sbGreen,1,1);
+        paneRight.add(new Label("Blue"), 0, 2);
+        paneRight.add(sbBlue, 1, 2);
 
 
 
