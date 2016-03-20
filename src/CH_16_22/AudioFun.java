@@ -18,12 +18,15 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AudioFun extends Application {
 
-    final AudioClip clip = new AudioClip("tos_com_beep_1.mp3");
+    AudioClip clip;
 
     public static void main(String[] args) {
         launch(args);
@@ -31,14 +34,30 @@ public class AudioFun extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        URL resource = getClass().getResource("tos_com_beep_1.mp3");
+        String sClipResource = resource.toString();
+        System.out.println("Looking for audio clip at: " + sClipResource);  // need to put mp3 file here
+
+        clip = new AudioClip(resource.toString());
 
         Button btnPlay = new Button("Play");
-        btnPlay.setOnAction(e -> { clip.play();} );
+        btnPlay.setOnAction(e -> {
+            clip.stop();
+            clip.setCycleCount(1);
+            clip.play(0.5);   // 0.5 is half volume
+        });
 
         Button btnLoop = new Button("Loop");
-        btnLoop.setOnAction(e -> { clip.setCycleCount(10);} );
+        btnLoop.setOnAction(e -> {
+            clip.setCycleCount(AudioClip.INDEFINITE);
+            clip.play(0.5);
+        });
 
         Button btnStop = new Button("Stop");
+        btnStop.setOnAction(e -> {
+            clip.stop();
+        });
+
         HBox hboxTop = new HBox(5, btnPlay, btnLoop, btnStop);
         hboxTop.setAlignment(Pos.CENTER);
         hboxTop.setPadding(new Insets(10));
