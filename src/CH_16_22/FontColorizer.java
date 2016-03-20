@@ -10,6 +10,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -100,6 +104,7 @@ public class FontColorizer extends Application {
         paneRight.add(sbRed,1,0);
         paneRight.add(new Label("Green"), 0, 1);
         paneRight.add(sbGreen,1,1);
+
 
 
         // need to call rebuildFonts to build for the first time
