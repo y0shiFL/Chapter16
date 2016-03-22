@@ -14,5 +14,7 @@ public class VideoClipSlider extends Application {
     @Override
     public void start(Stage primaryStage) {
 
+
+        //C:\Users\yoshi\IdeaProjects\Chapter14\src\Ch14_1\us.gif
     }
 }
